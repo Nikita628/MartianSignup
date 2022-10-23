@@ -1,0 +1,16 @@
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form .input {
+  width: 100%;
+}
+
+.form .input:first-child {
+  margin-bottom: 40px;
+}
+
+.form button {
+  margin-top: 50px;
+}

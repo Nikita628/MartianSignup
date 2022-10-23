@@ -1,0 +1,10 @@
+.link {
+  text-decoration: none;
+  color: var(--primary-light);
+  cursor: pointer;
+  display: inline-block;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

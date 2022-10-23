@@ -1,0 +1,14 @@
+.button {
+  padding: 20px 40px;
+  background: transparent;
+  border: 1px solid var(--primary-light);
+  color: var(--primary-light);
+  font: inherit;
+  cursor: pointer;
+  border-radius: 3px;
+  letter-spacing: 3px;
+}
+
+.button:active {
+  opacity: 0.8;
+}

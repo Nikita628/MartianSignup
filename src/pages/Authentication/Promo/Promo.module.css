@@ -1,0 +1,20 @@
+.container {
+  text-align: center;
+  position: relative;
+  padding: 120px 80px 90px 80px;
+  background-color: #361d3a;
+}
+
+.container h1 {
+  font-size: 25px;
+  letter-spacing: 35px;
+  color: var(--primary-color);
+  text-align: center;
+}
+
+.container img {
+  max-width: 250px;
+  margin-bottom: 60px;
+  filter: saturate(70%) drop-shadow(0 0 0.5em var(--primary-color));
+}
+
