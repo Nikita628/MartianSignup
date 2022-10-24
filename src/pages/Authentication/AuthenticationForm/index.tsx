@@ -25,22 +25,29 @@ const passwordValidators = [
 export function AuthenticationForm({ className }: IAuthenticationFormProps) {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
-
-  const {
-    value: email,
-    error: emailError,
-    validate: validateEmail,
-  } = useValidation(emailRef, emailValidators);
-
-  const {
-    value: password,
-    error: passwordError,
-    validate: validatePassword,
-  } = useValidation(passwordRef, passwordValidators);
+  const emailValidation = useValidation(emailRef, emailValidators);
+  const passwordValidation = useValidation(passwordRef, passwordValidators);
 
   function onSignupClick() {
-    validateEmail(email);
-    validatePassword(password);
+    if (emailRef.current) {
+      emailValidation.validate(emailRef.current.value);
+    }
+
+    if (passwordRef.current) {
+      passwordValidation.validate(passwordRef.current.value);
+    }
+  }
+
+  function onEmailChange() {
+    if (emailValidation.touched && emailRef.current) {
+      emailValidation.validate(emailRef.current.value);
+    }
+  }
+
+  function onPasswordChange() {
+    if (passwordValidation.touched && passwordRef.current) {
+      passwordValidation.validate(passwordRef.current.value);
+    }
   }
 
   return (
@@ -52,8 +59,8 @@ export function AuthenticationForm({ className }: IAuthenticationFormProps) {
           className={css.input}
           type="text"
           placeholder="Email"
-          value={email}
-          error={emailError}
+          error={emailValidation.error}
+          onChange={onEmailChange}
         />
         <Input
           ref={passwordRef}
@@ -61,8 +68,8 @@ export function AuthenticationForm({ className }: IAuthenticationFormProps) {
           className={css.input}
           type="password"
           placeholder="Password"
-          value={password}
-          error={passwordError}
+          error={passwordValidation.error}
+          onChange={onPasswordChange}
         />
         <Button type="button" onClick={onSignupClick}>
           Sign Up

@@ -6,9 +6,8 @@ export function useValidation(
   elementRef: React.MutableRefObject<HTMLInputElement | null>,
   validators: ValidatorFunc[]
 ) {
-  const isTouched = React.useRef(false);
+  const [touched, setTouched] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [value, setValue] = useState<string>("");
 
   useEffect(() => {
     if (!elementRef.current) {
@@ -17,29 +16,21 @@ export function useValidation(
 
     const element = elementRef.current;
 
-    const onBlur = () => {
-      validate(element.value);
-      isTouched.current = true;
-    };
-
-    const onChange = () => {
-      if (isTouched.current) {
-        validate(element.value);
-      }
-
-      setValue(element.value);
-    };
-
     if (elementRef.current) {
       element.addEventListener("blur", onBlur);
-      element.addEventListener("input", onChange);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function onBlur() {
+    if (elementRef.current) {
+      validate(elementRef.current.value);
     }
 
-    return () => {
-      element.removeEventListener("blur", onBlur);
-      element.removeEventListener("input", onChange);
-    };
-  }, [elementRef]);
+    if (!touched) {
+      setTouched(true);
+    }
+  }
 
   function validate(value: string) {
     let error: string | null = null;
@@ -47,16 +38,19 @@ export function useValidation(
     for (const validator of validators) {
       error = validator(value);
       if (error) {
-        isTouched.current = true;
         break;
       }
+    }
+
+    if (!touched) {
+      setTouched(true);
     }
 
     setError(error);
   }
 
   return {
-    value,
+    touched,
     error,
     validate,
   };
