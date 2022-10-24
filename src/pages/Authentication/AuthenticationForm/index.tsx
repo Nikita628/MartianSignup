@@ -6,6 +6,7 @@ import { Button } from "../../../components/ui-kit/Button";
 import { useRef } from "react";
 import * as validators from "../../../utils/validators";
 import { useValidation } from "../../../hooks/useValidation";
+import { Link } from "../../../components/ui-kit/Link";
 
 const emailValidators = [
   validators.required("Required"),
@@ -21,10 +22,7 @@ const passwordValidators = [
   validators.containsSpecial("Has to contain a special *,.!"),
 ];
 
-export function AuthenticationForm({
-  className,
-  ...formProps
-}: IAuthenticationFormProps) {
+export function AuthenticationForm({ className }: IAuthenticationFormProps) {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
@@ -46,28 +44,31 @@ export function AuthenticationForm({
   }
 
   return (
-    <form className={combine(css.form, className)} {...formProps}>
-      <Input
-        ref={emailRef}
-        name="email"
-        className={css.input}
-        type="text"
-        placeholder="Email"
-        value={email}
-        error={emailError}
-      />
-      <Input
-        ref={passwordRef}
-        name="password"
-        className={css.input}
-        type="password"
-        placeholder="Password"
-        value={password}
-        error={passwordError}
-      />
-      <Button type="button" onClick={onSignupClick}>
-        Sign Up
-      </Button>
-    </form>
+    <div className={combine(css.form, className)}>
+      <form>
+        <Input
+          ref={emailRef}
+          name="email"
+          className={css.input}
+          type="text"
+          placeholder="Email"
+          value={email}
+          error={emailError}
+        />
+        <Input
+          ref={passwordRef}
+          name="password"
+          className={css.input}
+          type="password"
+          placeholder="Password"
+          value={password}
+          error={passwordError}
+        />
+        <Button type="button" onClick={onSignupClick}>
+          Sign Up
+        </Button>
+      </form>
+      <Link className={css.forgot}>Forgot Password?</Link>
+    </div>
   );
 }

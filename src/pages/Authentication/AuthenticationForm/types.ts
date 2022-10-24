@@ -1,5 +1,3 @@
-export interface IAuthenticationFormProps
-  extends React.DetailedHTMLProps<
-    React.FormHTMLAttributes<HTMLFormElement>,
-    HTMLFormElement
-  > {}
+export interface IAuthenticationFormProps {
+  className?: string;
+}

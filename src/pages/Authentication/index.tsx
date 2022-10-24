@@ -1,4 +1,3 @@
-import { Link } from "../../components/ui-kit/Link";
 import css from "./Authentication.module.css";
 import { AuthenticationForm } from "./AuthenticationForm";
 import { Promo } from "./Promo";
@@ -8,11 +7,7 @@ export function Authentication() {
     <div className={css.page}>
       <div className={css.panel}>
         <Promo className={css.promo} />
-
-        <div className={css.form}>
-          <AuthenticationForm />
-          <Link className={css.forgot}>Forgot Password?</Link>
-        </div>
+        <AuthenticationForm className={css.form} />
       </div>
     </div>
   );
